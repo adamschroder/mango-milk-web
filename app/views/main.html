@@ -1,0 +1,6 @@
+<input type="text" ng-model="term" size="80" ngMinlength="1"/>
+<button ng-click="search()">Search</button>
+
+<ul class="results">
+  <li ng-repeat="show in shows"><a href="#/show/{{show.id}}">{{show.title}}</a></li>
+</ul>

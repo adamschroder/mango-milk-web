@@ -1,0 +1,7 @@
+<div class="show-wrapper">
+  <span class="title">{{title}}</span>
+  <span class="description">{{description}}</span>
+  <ul class="results">
+    <li ng-repeat="episode in episodes"><input type="checkbox" ng-model="checked" checked="{{episode.watched}}" ng-click="updateWatchedStatus(episode.id, checked)"/> {{episode.title}}</li>
+  </ul>
+</div>
