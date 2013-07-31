@@ -1,6 +1,16 @@
 <input type="text" ng-model="term" size="80" ngMinlength="1"/>
 <button ng-click="search()">Search</button>
 
-<ul class="results">
-  <li ng-repeat="show in shows"><a href="#/show/{{show.id}}">{{show.title}}</a></li>
+<ul class="results" ng-show="term.length">
+  <li ng-repeat="show in shows | filter:term | startFrom:currentPage * pageSize | limitTo:pageSize" ><a href="#/show/{{show.id}}">{{show.title}}</a></li>
 </ul>
+
+<div ng-show="(shows|filter:term).length > 14">
+  <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+      Previous
+  </button>
+  {{currentPage+1}}/{{numberOfPages()}}
+  <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+      Next
+  </button>
+</div>

@@ -48,7 +48,6 @@ angular.module('mangoMilkWebApp').controller('ShowCtrl',
               }
             }
 
-            // console.log (result)
             $scope.episodes.push(result);
           });
 
@@ -68,13 +67,13 @@ angular.module('mangoMilkWebApp').controller('ShowCtrl',
       var url = 'http://localhost:3000/watched_episodes?episode_id=' + episodeId + '&user_id=' + 1;
 
       if (!data) {
-
+        // move this shit to a config
         url = 'http://localhost:3000/watched_episodes/' + episodeId + '?user_id=' + 1;
       }
 
       $http({method: method, url: url}).
       success(function (data) {
-
+        // remove spinnerz
       });
     };
   }
