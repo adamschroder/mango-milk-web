@@ -33,7 +33,7 @@ mangoMilk.controller('MainCtrl',
 
     $scope.numberOfPages = function () {
 
-        return Math.ceil($scope.shows.length/$scope.pageSize);
+      return Math.ceil($scope.shows.length/$scope.pageSize);
     };
 
     // Instantiate these variables outside the watch
@@ -42,19 +42,18 @@ mangoMilk.controller('MainCtrl',
 
     $scope.$watch('term', function (val) {
 
-        $scope.numberOfPages();
+      $scope.numberOfPages();
+      if (filterTextTimeout) {
 
-        if (filterTextTimeout) {
+        $timeout.cancel(filterTextTimeout);
+      }
 
-          $timeout.cancel(filterTextTimeout);
-        }
+      tempFilterText = val;
 
-        tempFilterText = val;
+      filterTextTimeout = $timeout(function() {
 
-        filterTextTimeout = $timeout(function() {
-
-          $scope.term = tempFilterText;
-        });
+        $scope.term = tempFilterText;
+      });
     });
 
     getShows();

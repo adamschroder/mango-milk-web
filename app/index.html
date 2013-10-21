@@ -32,6 +32,36 @@
 
     <!-- Add your site or application content here -->
     <div class="container" ng-app="mangoMilkWebApp">
+      <div ng-controller="MainCtrl">
+        <input type="text" ng-model="term" size="80" ngMinlength="1"/>
+        <ul class="results" ng-show="term.length">
+          <li ng-repeat="show in shows | filter:term | startFrom:currentPage * pageSize | limitTo:pageSize" ><a href="#/show/{{show.id}}">{{show.title}}</a></li>
+        </ul>
+        <div ng-show="(shows|filter:term).length > 14">
+          <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+              Previous
+          </button>
+          {{currentPage+1}}/{{numberOfPages()}}
+          <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+              Next
+          </button>
+        </div>
+      </div>
+
+      <div class="forms" ng-controller="FormController">
+        <input type="button" class="signup" ng-model="signupClicked" ng-click="signupClicked=true; loginClicked=false" value="Create an Account"/>
+        <div class="login-box" ng-show="signupClicked" ng-hide="loginClicked">
+          <input type="text" class="email" placeholder="email" id="signup-email"/>
+          <input type="password" class="password" placeholder="password" id="signup-password"/>
+          <input type="button" class="submit" ng-click="submitSignup()" value="Submit"/>
+        </div>
+        <input type="button" class="login" ng-model="loginClicked"  ng-click="loginClicked=true; signupClicked=false" value="Login"/>
+        <div class="signup-box" ng-show="loginClicked" ng-hide="signupClicked">
+          <input type="text" class="email" placeholder="email" id="login-email"/>
+          <input type="password" class="password" placeholder="password" id="login-password"/>
+          <input type="button" class="submit" ng-click="submitLogin()" value="Submit"/>
+        </div>
+      </div>
 
       <div ng-view=""></div>
     </div>

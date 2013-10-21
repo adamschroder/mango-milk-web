@@ -16,6 +16,36 @@ function compare(a, b) {
   return 0;
 }
 
+angular.module('mangoMilkWebApp').controller('FormController',
+  function ($scope, $http) {
+
+    $scope.submitSignup = function () {
+
+      $http({
+        'method':'POST',
+        'url':'http://localhost:3000/users/',
+        'data': {
+          'email': document.getElementById('signup-email').value,
+          'password':document.getElementById('signup-password').value
+        }
+      }).
+      success(function(data, status) {
+        console.log(data)
+      }).
+      error(function (data, status) {
+        console.log(data)
+      });
+    };
+
+    $scope.submitLogin = function () {
+
+      $http({
+        'method':'POST',
+        'url':'http://localhost:3000/users/users/login'
+      });
+    };
+});
+
 // TODO: move this to a module, dont get this yet
 angular.module('mangoMilkWebApp').controller('ShowCtrl',
   function ($scope, $routeParams, $http) {
@@ -59,7 +89,8 @@ angular.module('mangoMilkWebApp').controller('ShowCtrl',
 
         $scope.results = data || 'Request failed';
         $scope.status = status;
-    });
+      }
+    );
 
     $scope.updateWatchedStatus = function(episodeId, data) {
 
@@ -72,7 +103,7 @@ angular.module('mangoMilkWebApp').controller('ShowCtrl',
       }
 
       $http({method: method, url: url}).
-      success(function (data) {
+      success(function () {
         // remove spinnerz
       });
     };
@@ -84,21 +115,21 @@ mangoMilk.config(
   function ($routeProvider) {
     $routeProvider
 
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      })
+      // .when('/', {
+      //   templateUrl: 'views/main.html',
+      //   controller: 'MainCtrl'
+      // })
+      // .otherwise({
+      //   redirectTo: '/'
+      // })
 
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      })
+      // .when('/login', {
+      //   templateUrl: 'views/login.html',
+      //   controller: 'LoginCtrl'
+      // })
+      // .otherwise({
+      //   redirectTo: '/'
+      // })
 
       .when('/show/:id', {
         templateUrl: 'views/show.html',
